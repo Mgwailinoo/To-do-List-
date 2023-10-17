@@ -5,9 +5,8 @@ import { prisma } from "@/db";
 import TodoItems from "@/components/TodoItems";
 import { BadgePlus } from "lucide-react";
 
-async function getTodos() {
-  "use server";
-  return await prisma.todo.findMany();
+function getTodos() {
+  return prisma.todo.findMany();
 }
 
 async function editTodo(id, title) {
@@ -109,7 +108,6 @@ export default async function Home() {
               toggleTodo={toggleTodo}
               editTodo={editTodo}
               deleteTodo={deleteTodo}
-              getTodos={getTodos}
             />
           ))}
         </ul>
