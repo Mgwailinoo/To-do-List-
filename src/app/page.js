@@ -9,75 +9,75 @@ function getTodos() {
   return prisma.todo.findMany();
 }
 
-// async function editTodo(id, title) {
-//   "use server";
-//   await prisma.todo.update({
-//     where: { id },
-//     data: { title },
-//   });
-// }
-
 async function editTodo(id, title) {
   "use server";
-  try {
-    await prisma.todo.update({
-      where: { id },
-      data: { title },
-    });
-
-    // Call getTodos after a successful edit
-    const todos = await getTodos();
-    console.log("Updated todos:", todos);
-  } catch (error) {
-    console.error("Error editing todo:", error);
-  }
+  await prisma.todo.update({
+    where: { id },
+    data: { title },
+  });
 }
 
-// async function deleteTodo(id) {
+// async function editTodo(id, title) {
 //   "use server";
-//   await prisma.todo.delete({
-//     where: { id },
-//   });
-// }
+//   try {
+//     await prisma.todo.update({
+//       where: { id },
+//       data: { title },
+//     });
 
-// async function toggleTodo(id, complete) {
-//   "use server";
-//   await prisma.todo.update({
-//     where: { id },
-//     data: { complete },
-//   });
+//     // Call getTodos after a successful edit
+//     const todos = await getTodos();
+//     console.log("Updated todos:", todos);
+//   } catch (error) {
+//     console.error("Error editing todo:", error);
+//   }
 // }
 
 async function deleteTodo(id) {
   "use server";
-  try {
-    await prisma.todo.delete({
-      where: { id },
-    });
-
-    // Call getTodos after a successful delete
-    const todos = await getTodos();
-    console.log("Updated todos:", todos);
-  } catch (error) {
-    console.error("Error deleting todo:", error);
-  }
+  await prisma.todo.delete({
+    where: { id },
+  });
 }
 
 async function toggleTodo(id, complete) {
   "use server";
-  try {
-    await prisma.todo.update({
-      where: { id },
-      data: { complete },
-    });
-
-    // Call getTodos after a successful toggle
-    const todos = await getTodos();
-    console.log("Updated todos:", todos);
-  } catch (error) {
-    console.error("Error toggling todo:", error);
-  }
+  await prisma.todo.update({
+    where: { id },
+    data: { complete },
+  });
 }
+
+// async function deleteTodo(id) {
+//   "use server";
+//   try {
+//     await prisma.todo.delete({
+//       where: { id },
+//     });
+
+//     // Call getTodos after a successful delete
+//     const todos = await getTodos();
+//     console.log("Updated todos:", todos);
+//   } catch (error) {
+//     console.error("Error deleting todo:", error);
+//   }
+// }
+
+// async function toggleTodo(id, complete) {
+//   "use server";
+//   try {
+//     await prisma.todo.update({
+//       where: { id },
+//       data: { complete },
+//     });
+
+//     // Call getTodos after a successful toggle
+//     const todos = await getTodos();
+//     console.log("Updated todos:", todos);
+//   } catch (error) {
+//     console.error("Error toggling todo:", error);
+//   }
+// }
 
 export default async function Home() {
   const todos = await getTodos();
