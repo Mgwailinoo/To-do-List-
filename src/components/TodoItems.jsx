@@ -11,6 +11,7 @@ const TodoItems = ({
   toggleTodo,
   editTodo,
   deleteTodo,
+  getTodos,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
@@ -20,15 +21,37 @@ const TodoItems = ({
     setIsEditing(true);
   };
 
-  const saveEdit = () => {
+  // const saveEdit = () => {
+  //   setIsEditing(false);
+  //   editTodo(id, editedTitle);
+  //   router.refresh();
+  // };
+  const saveEdit = async () => {
     setIsEditing(false);
-    editTodo(id, editedTitle);
-    router.refresh();
+    try {
+      await editTodo(id, editedTitle);
+      router.refresh();
+    } catch (error) {
+      console.error("Error updating todo:", error);
+    } finally {
+      await getTodos();
+    }
   };
 
-  const deleteHandler = () => {
-    deleteTodo(id);
-    router.refresh();
+  // const deleteHandler = () => {
+  //   deleteTodo(id);
+  //   router.refresh();
+  // };
+
+  const deleteHandler = async () => {
+    try {
+      await deleteTodo(id); // Wait for the delete operation to complete
+      router.refresh(); // Refresh the page after a successful deletion
+    } catch (error) {
+      console.error("Error deleting todo:", error);
+    } finally {
+      await getTodos(); // Update the list of todos regardless of success or failure
+    }
   };
 
   return (
